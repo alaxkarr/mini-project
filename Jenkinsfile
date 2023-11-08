@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'docker build . -t node-app1'
+                    sh 'docker build . -t node-app3'
                 }
             }
         }
@@ -13,7 +13,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh 'docker run --rm node-app1 npm test'
+                    sh 'docker run --rm node-app3 npm test'
                 }
             }
         }
@@ -35,9 +35,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker stop node-app1 || true'
-                    sh 'docker rm node-app1 || true'
-                    sh 'docker run -d --name node-app1 -p 3000:3000 node-app1'
+                    sh 'docker stop node-app3 || true'
+                    sh 'docker rm node-app3 || true'
+                    sh 'docker run -d --name node-app3 -p 3000:3000 node-app3'
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo "Aman*9261" | docker login -u "amanlaxkar" --password-stdin'
-                    sh 'docker push amanlaxkar/appimage:node-app1'
+                    sh 'docker push amanlaxkar/appimage:node-app3'
                 }
             }
         }
